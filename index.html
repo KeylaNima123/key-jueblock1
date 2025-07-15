@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KEY JUEBLOCK</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap">
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="manifest" href="manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('serviceWorker.js')
+        .then(() => console.log('Service Worker registrado'));
+    }
+  </script>
+</head>
+<body>
+  <h1 class="logo">KEY JUEBLOCK</h1>
+  <div id="scoreboard">
+    Puntaje: <span id="score">0</span> | Récord: <span id="best">0</span>
+  </div>
+  <div id="message" class="hidden"></div>
+  <div id="board"></div>
+  <div id="shapes"></div>
+  <button id="reset">Reiniciar Juego</button>
+
+  <audio id="successSound" src="sounds/success.mp3"></audio>
+  <audio id="failSound" src="sounds/fail.mp3"></audio>
+  <audio id="placeSound" src="sounds/place.mp3"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
