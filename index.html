@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,7 +6,6 @@
   <title>KEY JUEBLOCK</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap">
   <link rel="stylesheet" href="style.css">
-
   <link rel="manifest" href="manifest.json">
   <script>
     if ('serviceWorker' in navigator) {
@@ -26,13 +24,39 @@
   <div id="shapes"></div>
   <button id="reset">Reiniciar Juego</button>
 
+  <!-- Botón de instalación manual -->
+  <button id="installBtn" class="hidden" style="margin-top: 20px; background-color: #ffca28; padding: 10px 20px; font-size: 1rem; border: none; border-radius: 10px;">
+    Instalar Key Jueblock
+  </button>
+
   <audio id="successSound" src="sounds/success.mp3"></audio>
   <audio id="failSound" src="sounds/fail.mp3"></audio>
   <audio id="placeSound" src="sounds/place.mp3"></audio>
 
   <script src="script.js"></script>
+  <script>
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.classList.remove('hidden');
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          console.log('Usuario aceptó la instalación');
+        } else {
+          console.log('Usuario canceló la instalación');
+        }
+        deferredPrompt = null;
+        installBtn.classList.add('hidden');
+      }
+    });
+  </script>
 </body>
-  <button id="installBtn" class="hidden" style="margin-top: 20px; background-color: #ffca28; padding: 10px 20px; font-size: 1rem; border: none; border-radius: 10px;">
-  Instalar Key Jueblock
-</button>
 </html>
